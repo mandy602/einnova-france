@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg1)"/>
+  <rect x="250" y="160" width="300" height="180" fill="none" stroke="#de0e14" stroke-width="3" opacity="0.7"/>
+  <polygon points="230,160 570,160 400,60" fill="none" stroke="#de0e14" stroke-width="3" opacity="0.7"/>
+  <rect x="310" y="80" width="40" height="28" fill="#de0e14" opacity="0.7" rx="2"/>
+  <rect x="360" y="75" width="40" height="28" fill="#de0e14" opacity="0.75" rx="2"/>
+  <rect x="410" y="75" width="40" height="28" fill="#de0e14" opacity="0.7" rx="2"/>
+  <rect x="460" y="80" width="40" height="28" fill="#de0e14" opacity="0.75" rx="2"/>
+  <rect x="360" y="250" width="80" height="90" fill="none" stroke="#de0e14" stroke-width="2" opacity="0.6"/>
+  <rect x="280" y="200" width="50" height="40" fill="none" stroke="#de0e14" stroke-width="2" opacity="0.5"/>
+  <rect x="470" y="200" width="50" height="40" fill="none" stroke="#de0e14" stroke-width="2" opacity="0.5"/>
+  <circle cx="650" cy="90" r="45" fill="none" stroke="#de0e14" stroke-width="2" opacity="0.6"/>
+  <line x1="650" y1="30" x2="650" y2="15" stroke="#de0e14" stroke-width="2" opacity="0.5"/>
+  <line x1="650" y1="150" x2="650" y2="165" stroke="#de0e14" stroke-width="2" opacity="0.5"/>
+  <line x1="590" y1="90" x2="575" y2="90" stroke="#de0e14" stroke-width="2" opacity="0.5"/>
+  <line x1="710" y1="90" x2="725" y2="90" stroke="#de0e14" stroke-width="2" opacity="0.5"/>
+  <text x="400" y="370" text-anchor="middle" font-family="Instrument Serif, Georgia, serif" font-size="18" fill="#de0e14" opacity="0.7">Photovoltaique Residentiel</text>
+</svg>

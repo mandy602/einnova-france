@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eINNOVA France — Infrastructures énergétiques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --brand: #e31218;
+  --brand-dim: color-mix(in oklch, #e31218 58%, #000);
+  --brand-glow: color-mix(in oklch, #e31218 22%, transparent);
+  --bg: oklch(0.11 0.003 20);
+  --bg-elevated: oklch(0.15 0.003 20);
+  --bg-card: oklch(0.18 0.003 20);
+  --text: oklch(0.93 0.002 20);
+  --text-dim: oklch(0.64 0.003 20);
+  --text-subtle: oklch(0.44 0.003 20);
+  --border: oklch(0.24 0.003 20);
+  --radius: 3px;
+  --transition: 280ms cubic-bezier(0.22, 0, 0, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 1.05rem;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--text-subtle); border-radius: 2px; }
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.5rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background var(--transition), padding var(--transition);
+}
+.nav.scrolled {
+  background: color-mix(in oklch, var(--bg) 92%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 4rem;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text);
+}
+.nav-logo-img { height: 150px; width: auto; }
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color var(--transition);
+  position: relative;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--brand);
+  transition: width var(--transition);
+}
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 4rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 45% 35%, var(--brand-glow), transparent 65%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 60% 40% at 45% 35%, black 15%, transparent 65%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+.hero-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--brand);
+  padding: 0.35rem 0.75rem;
+  border: 1px solid color-mix(in oklch, var(--brand) 28%, transparent);
+  border-radius: 2px;
+  align-self: flex-start;
+}
+.hero h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  max-width: 640px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--brand);
+}
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 500px;
+  line-height: 1.7;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.75rem;
+  background: var(--brand);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+  align-self: flex-start;
+}
+.hero-cta:hover { background: color-mix(in oklch, var(--brand) 82%, #000); }
+.hero-cta-arrow { transition: transform var(--transition); }
+.hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
+
+/* ===== SECTION ===== */
+.section { padding: 7rem 4rem; position: relative; }
+.section-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 0.6rem;
+}
+.section h2 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+.section-intro {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 500px;
+  line-height: 1.7;
+  margin-bottom: 3.5rem;
+}
+
+/* ===== BUSINESS SECTION ===== */
+.business-section { border-top: 1px solid var(--border); }
+.business-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  align-items: end;
+}
+.business-number {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 7rem;
+  font-weight: 400;
+  line-height: 0.8;
+  color: var(--text-subtle);
+  opacity: 0.25;
+  text-align: right;
+}
+
+/* ===== SECTION IMAGE ===== */
+.section-image {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 2px;
+  opacity: 0.85;
+  transition: opacity var(--transition);
+  margin-bottom: 3rem;
+}
+.section-image:hover { opacity: 1; }
+
+/* ===== PRODUCT GRID ===== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.product-card {
+  background: var(--bg-card);
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background var(--transition), box-shadow var(--transition);
+}
+.product-card:hover {
+  background: oklch(0.195 0.004 20);
+  box-shadow: 0 12px 40px color-mix(in oklch, var(--brand) 8%, transparent);
+}
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+.product-card:hover::before { transform: scaleX(1); }
+.product-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--brand) 10%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  font-size: 1.2rem;
+}
+.product-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+.product-card .product-subtitle {
+  font-size: 0.76rem;
+  color: var(--brand);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+.product-card p {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.65;
+}
+
+/* ===== SUB-SECTION ===== */
+.sub-section { margin-bottom: 3rem; }
+.sub-section-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+.sub-section-label span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.sub-section-label::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--brand);
+}
+
+/* ===== IMAGE STRIP ===== */
+.image-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-bottom: 3rem;
+}
+.image-strip img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity var(--transition);
+}
+.image-strip img:hover { opacity: 1; }
+
+/* ===== PARTNERS MARQUEE ===== */
+.partners-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.75rem 0;
+  overflow: hidden;
+  margin-top: 3.5rem;
+}
+.partners-track {
+  display: flex;
+  gap: 3.5rem;
+  animation: scroll 30s linear infinite;
+  width: max-content;
+}
+.partners-track span {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ===== FEATURES ===== */
+.features-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 3.5rem;
+}
+.feature-item {
+  background: var(--bg);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  transition: background var(--transition);
+}
+.feature-item:hover { background: var(--bg-card); }
+.feature-value {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: var(--brand);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.feature-label {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* ===== CONTACT ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  padding: 4rem;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 4rem;
+}
+.footer-brand p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-top: 0.85rem;
+  max-width: 300px;
+}
+.footer h4 {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 1.1rem;
+}
+.footer ul { list-style: none; }
+.footer li { margin-bottom: 0.55rem; }
+.footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: color var(--transition);
+}
+.footer a:hover { color: var(--text); }
+.footer-bottom {
+  grid-column: 1 / -1;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-subtle);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .nav { padding: 1.25rem 2rem; }
+  .nav.scrolled { padding: 0.875rem 2rem; }
+  .hero { padding: 6rem 2rem 3rem; }
+  .section { padding: 5rem 2rem; }
+  .business-header { grid-template-columns: 1fr; gap: 2rem; }
+  .business-number { text-align: left; font-size: 4rem; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .image-strip { grid-template-columns: repeat(2, 1fr); }
+  .features-strip { grid-template-columns: repeat(2, 1fr); }
+  .footer { grid-template-columns: 1fr 1fr; }
+  .section-image { height: 260px; }
+  .image-strip img { height: 220px; }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .hero h1 { font-size: 2rem; }
+  .product-grid { grid-template-columns: 1fr; }
+  .image-strip { grid-template-columns: 1fr; }
+  .features-strip { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .footer { grid-template-columns: 1fr; gap: 2rem; }
+  .nav-logo-img { height: 110px; }
+  .section-image { height: 200px; }
+  .image-strip img { height: 180px; }
+}
+
+/* ===== ANIMATION ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 0, 0, 1), transform 0.7s cubic-bezier(0.22, 0, 0, 1);
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in { transition: none; opacity: 1; transform: none; }
+  .partners-track { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+
+
+/* ===== PROJECT APPROACH ===== */
+.approach-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-top: 2.5rem;
+}
+.approach-card {
+  background: var(--bg-card);
+  padding: 2rem 1.5rem;
+  min-height: 170px;
+}
+.approach-card .step {
+  color: var(--brand);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.approach-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.65rem;
+}
+.approach-card p {
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.method-item {
+  background: var(--bg-card);
+  padding: 2rem 1.2rem;
+  min-height: 190px;
+  position: relative;
+}
+.method-number {
+  font-family: 'Instrument Serif', Georgia, serif;
+  color: var(--brand);
+  font-size: 2.2rem;
+  margin-bottom: 0.7rem;
+}
+.method-item h3 {
+  font-size: 1rem;
+  margin-bottom: 0.55rem;
+}
+.method-item p {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.sector-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.sector-card {
+  background: var(--bg-card);
+  padding: 2rem 1rem;
+  text-align: center;
+}
+.sector-icon { font-size: 1.7rem; margin-bottom: 0.7rem; }
+.sector-card h3 { font-size: 0.98rem; }
+.note-box {
+  border: 1px solid var(--border);
+  background: color-mix(in oklch, var(--bg-card) 80%, transparent);
+  padding: 1.5rem 1.75rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-top: 2.5rem;
+}
+.hero-actions { display:flex; gap:1rem; flex-wrap:wrap; }
+.hero-cta.secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.hero-cta.secondary:hover { background: var(--bg-card); }
+@media (max-width: 1024px) {
+  .approach-grid { grid-template-columns: repeat(2,1fr); }
+  .method-grid { grid-template-columns: repeat(3,1fr); }
+  .sector-grid { grid-template-columns: repeat(3,1fr); }
+}
+@media (max-width: 640px) {
+  .approach-grid, .method-grid, .sector-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo"><img src="logo.png" alt="eINNOVA" class="nav-logo-img"></a>
+  <ul class="nav-links">
+    <li><a href="#solutions">Solutions</a></li>
+    <li><a href="#method">Méthode</a></li>
+    <li><a href="#secteurs">Secteurs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-content fade-in">
+    <div><span class="hero-tag">Solutions d'infrastructures énergétiques</span></div>
+    <h1>Construisons vos<br><em>infrastructures énergétiques</em>.</h1>
+    <p>Einnova France accompagne les particuliers, les entreprises et les collectivités dans la conception, l'installation et la coordination de solutions photovoltaïques, de recharge pour véhicules électriques et d'infrastructures énergétiques adaptées à chaque projet.</p>
+    <div class="hero-actions">
+      <a href="#solutions" class="hero-cta">Découvrir nos solutions <span class="hero-cta-arrow">→</span></a>
+      <a href="#contact" class="hero-cta secondary">Demander un devis</a>
+    </div>
+  </div>
+</section>
+
+<section class="section business-section" id="expertise">
+  <div class="business-header fade-in">
+    <div>
+      <span class="section-label">Notre expertise</span>
+      <h2>Une approche orientée projet.</h2>
+      <p class="section-intro">Un projet énergétique ne se résume pas à un équipement. Chaque site possède ses contraintes techniques, économiques et réglementaires. Notre rôle est de proposer une solution cohérente, fiable et adaptée à chaque client.</p>
+    </div>
+    <div class="business-number">01</div>
+  </div>
+  <div class="approach-grid fade-in">
+    <div class="approach-card"><div class="step">Comprendre</div><h3>Analyse du besoin</h3><p>Nous étudions le site, les usages, les contraintes et les objectifs du projet.</p></div>
+    <div class="approach-card"><div class="step">Concevoir</div><h3>Solution adaptée</h3><p>Nous proposons une architecture technique claire, réaliste et évolutive.</p></div>
+    <div class="approach-card"><div class="step">Installer</div><h3>Mise en œuvre</h3><p>Nous coordonnons l'installation avec une attention portée à la conformité et à la qualité.</p></div>
+    <div class="approach-card"><div class="step">Suivre</div><h3>Accompagnement</h3><p>Nous restons présents après la mise en service pour le suivi, l'assistance et la maintenance.</p></div>
+  </div>
+</section>
+
+<section class="section business-section" id="solutions">
+  <div class="business-header fade-in">
+    <div>
+      <span class="section-label">Nos solutions</span>
+      <h2>Des infrastructures pensées pour vos usages.</h2>
+      <p class="section-intro">Nous intervenons sur trois familles de projets : recharge électrique, production solaire et stationnement photovoltaïque. Chaque solution est dimensionnée selon le site et les besoins réels du client.</p>
+    </div>
+    <div class="business-number">02</div>
+  </div>
+  <div class="product-grid fade-in">
+    <div class="product-card">
+      <div class="product-icon">⚡</div>
+      <h3>Bornes de recharge</h3>
+      <span class="product-subtitle">Mobilité électrique</span>
+      <p>Solutions de recharge pour entreprises, hôtels, commerces, copropriétés, parkings privés et collectivités. Analyse du besoin, choix des équipements, installation, mise en service et suivi.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-icon">☀️</div>
+      <h3>Photovoltaïque</h3>
+      <span class="product-subtitle">Production solaire</span>
+      <p>Installations solaires pour maisons, bâtiments tertiaires, toitures industrielles et sites professionnels. Objectif : produire, consommer et valoriser une énergie locale.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-icon">🚗</div>
+      <h3>Carports solaires</h3>
+      <span class="product-subtitle">Stationnement énergétique</span>
+      <p>Carports et ombrières photovoltaïques pour parkings résidentiels, professionnels et commerciaux. Une infrastructure qui protège les véhicules tout en produisant de l'énergie.</p>
+    </div>
+  </div>
+  <div class="note-box fade-in">Nous sélectionnons les équipements les plus adaptés auprès de fabricants reconnus afin de garantir la qualité, la fiabilité et la cohérence technique de chaque projet.</div>
+</section>
+
+<section class="section business-section" id="recharge">
+  <div class="business-header fade-in">
+    <div>
+      <span class="section-label">Recharge électrique</span>
+      <h2>Déployer une infrastructure de recharge fiable.</h2>
+      <p class="section-intro">Nous aidons nos clients à installer des solutions de recharge adaptées à leurs usages : véhicules de société, visiteurs, clients, résidents ou parkings partagés.</p>
+    </div>
+    <div class="business-number">03</div>
+  </div>
+  <img class="section-image fade-in" src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=1200&h=400&fit=crop&auto=format" alt="Infrastructure de recharge" loading="lazy">
+  <div class="product-grid fade-in">
+    <div class="product-card"><div class="product-icon">🏢</div><h3>Entreprises</h3><span class="product-subtitle">Bureaux & flottes</span><p>Recharge pour collaborateurs, véhicules professionnels et parkings privés avec une solution adaptée à la puissance disponible.</p></div>
+    <div class="product-card"><div class="product-icon">🏨</div><h3>Hôtels & commerces</h3><span class="product-subtitle">Service client</span><p>Valorisez votre établissement avec une recharge simple, visible et adaptée aux visiteurs.</p></div>
+    <div class="product-card"><div class="product-icon">🏛️</div><h3>Collectivités</h3><span class="product-subtitle">Mobilité publique</span><p>Accompagnement des projets de mobilité électrique et coordination des contraintes techniques du site.</p></div>
+  </div>
+</section>
+
+<section class="section business-section" id="solaire">
+  <div class="business-header fade-in">
+    <div>
+      <span class="section-label">Production solaire</span>
+      <h2>Produire une énergie locale et utile.</h2>
+      <p class="section-intro">Nous concevons des installations photovoltaïques adaptées aux bâtiments résidentiels, professionnels et industriels, avec une logique d'autoconsommation et de performance durable.</p>
+    </div>
+    <div class="business-number">04</div>
+  </div>
+  <div class="image-strip fade-in">
+    <img src="solar-residentiel.jpg" alt="Photovoltaïque résidentiel" loading="lazy">
+    <img src="solar-commercial.jpg" alt="Photovoltaïque professionnel" loading="lazy">
+    <img src="solar-ground.jpg" alt="Infrastructure solaire" loading="lazy">
+  </div>
+  <div class="product-grid fade-in">
+    <div class="product-card"><div class="product-icon">🏠</div><h3>Résidentiel</h3><span class="product-subtitle">Maison individuelle</span><p>Réduire durablement sa facture énergétique grâce à une installation solaire adaptée à la toiture et aux usages du foyer.</p></div>
+    <div class="product-card"><div class="product-icon">🏭</div><h3>Professionnel</h3><span class="product-subtitle">Bâtiments & activités</span><p>Valoriser les surfaces disponibles et optimiser les coûts énergétiques d'une activité professionnelle.</p></div>
+    <div class="product-card"><div class="product-icon">🔋</div><h3>Autoconsommation</h3><span class="product-subtitle">Énergie maîtrisée</span><p>Produire, consommer et valoriser sa propre énergie avec une solution conçue selon les besoins réels du site.</p></div>
+  </div>
+</section>
+
+<section class="section business-section" id="carport">
+  <div class="business-header fade-in">
+    <div>
+      <span class="section-label">Stationnement solaire</span>
+      <h2>Transformer un parking en infrastructure énergétique.</h2>
+      <p class="section-intro">Les carports et ombrières photovoltaïques permettent de combiner stationnement, production solaire et recharge électrique dans une solution cohérente.</p>
+    </div>
+    <div class="business-number">05</div>
+  </div>
+  <img class="section-image fade-in" src="carport.jpg" alt="Carport solaire" loading="lazy">
+  <div class="product-grid fade-in">
+    <div class="product-card"><div class="product-icon">🚗</div><h3>Carport résidentiel</h3><span class="product-subtitle">1 à 2 places</span><p>Une solution compacte pour protéger les véhicules et produire de l'électricité à domicile.</p></div>
+    <div class="product-card"><div class="product-icon">🅿️</div><h3>Parking d'entreprise</h3><span class="product-subtitle">Usage professionnel</span><p>Optimiser les parkings existants avec une production solaire intégrée et une possible recharge électrique.</p></div>
+    <div class="product-card"><div class="product-icon">🏬</div><h3>Parking commercial</h3><span class="product-subtitle">Clients & visiteurs</span><p>Améliorer l'expérience client tout en créant une infrastructure énergétique utile au site.</p></div>
+  </div>
+</section>
+
+<section class="section business-section" id="method">
+  <div class="business-header fade-in">
+    <div>
+      <span class="section-label">Notre méthode</span>
+      <h2>Un cadre clair, du premier échange à la mise en service.</h2>
+      <p class="section-intro">Notre organisation permet de simplifier chaque projet avec un interlocuteur unique et une coordination structurée.</p>
+    </div>
+    <div class="business-number">06</div>
+  </div>
+  <div class="method-grid fade-in">
+    <div class="method-item"><div class="method-number">01</div><h3>Analyse du besoin</h3><p>Compréhension du site, des usages et des objectifs.</p></div>
+    <div class="method-item"><div class="method-number">02</div><h3>Étude technique</h3><p>Évaluation des contraintes et des possibilités d'installation.</p></div>
+    <div class="method-item"><div class="method-number">03</div><h3>Conception</h3><p>Proposition d'une solution cohérente et adaptée.</p></div>
+    <div class="method-item"><div class="method-number">04</div><h3>Installation</h3><p>Coordination et réalisation des travaux nécessaires.</p></div>
+    <div class="method-item"><div class="method-number">05</div><h3>Mise en service</h3><p>Vérifications, tests et accompagnement au démarrage.</p></div>
+    <div class="method-item"><div class="method-number">06</div><h3>Maintenance</h3><p>Suivi technique, assistance et services après installation.</p></div>
+  </div>
+</section>
+
+<section class="section business-section" id="secteurs">
+  <div class="business-header fade-in">
+    <div>
+      <span class="section-label">Nos secteurs</span>
+      <h2>Des solutions pour différents types de sites.</h2>
+      <p class="section-intro">Nous accompagnons des projets de tailles et d'usages différents, avec une approche adaptée à chaque environnement.</p>
+    </div>
+    <div class="business-number">07</div>
+  </div>
+  <div class="sector-grid fade-in">
+    <div class="sector-card"><div class="sector-icon">🏠</div><h3>Résidentiel</h3></div>
+    <div class="sector-card"><div class="sector-icon">🏢</div><h3>Entreprises</h3></div>
+    <div class="sector-card"><div class="sector-icon">🏨</div><h3>Hôtels</h3></div>
+    <div class="sector-card"><div class="sector-icon">🏭</div><h3>Industrie</h3></div>
+    <div class="sector-card"><div class="sector-icon">🚗</div><h3>Mobilité</h3></div>
+    <div class="sector-card"><div class="sector-icon">🏛️</div><h3>Collectivités</h3></div>
+  </div>
+</section>
+
+<section class="section business-section" id="why">
+  <div class="business-header fade-in">
+    <div>
+      <span class="section-label">Pourquoi Einnova</span>
+      <h2>Une structure agile, un accompagnement sérieux.</h2>
+      <p class="section-intro">Nous privilégions une approche réaliste : comprendre le projet, proposer une solution adaptée, coordonner les étapes et rester disponibles après l'installation.</p>
+    </div>
+    <div class="business-number">08</div>
+  </div>
+  <div class="features-strip fade-in">
+    <div class="feature-item"><div class="feature-value">01</div><div class="feature-label">Accompagnement personnalisé</div></div>
+    <div class="feature-item"><div class="feature-value">02</div><div class="feature-label">Solutions adaptées</div></div>
+    <div class="feature-item"><div class="feature-value">03</div><div class="feature-label">Coordination de projet</div></div>
+    <div class="feature-item"><div class="feature-value">04</div><div class="feature-label">Suivi & maintenance</div></div>
+  </div>
+</section>
+
+<section class="section" id="contact" style="border-top: 1px solid var(--border);">
+  <div class="business-header fade-in">
+    <div>
+      <span class="section-label">Contact</span>
+      <h2>Parlons de votre projet.</h2>
+      <p class="section-intro">Vous avez un projet photovoltaïque, une infrastructure de recharge ou un carport solaire ? Notre équipe est à votre disposition pour étudier votre besoin et vous proposer une solution adaptée.</p>
+      <a href="mailto:contact@einnova-solarline.fr" class="hero-cta">Demander un devis <span class="hero-cta-arrow">→</span></a>
+    </div>
+    <div></div>
+  </div>
+  <div class="contact-grid fade-in">
+    <div class="product-card"><div class="product-icon">🕐</div><h3>Horaires</h3><p style="margin-top:0.5rem;">Lun—Ven 9h00 — 18h00<br>Intervention sur rendez-vous</p></div>
+    <div class="product-card"><div class="product-icon">📍</div><h3>Adresse</h3><p style="margin-top:0.5rem;">60 RUE FRANCOIS 1ER<br>75008 PARIS</p></div>
+    <div class="product-card"><div class="product-icon">📧</div><h3>Contact</h3><p style="margin-top:0.5rem;">Décrivez votre projet à<br>contact@einnova-solarline.fr</p></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-brand">
+    <a href="#" style="display:inline-flex;align-items:center;text-decoration:none;color:var(--text);margin-bottom:0.5rem;"><img src="logo.png" alt="eINNOVA" style="height:40px;"></a>
+    <p>Solutions d'infrastructures énergétiques pour projets photovoltaïques, recharge électrique et stationnement solaire.</p>
+  </div>
+  <div><h4>Solutions</h4><ul><li><a href="#recharge">Bornes de recharge</a></li><li><a href="#solaire">Photovoltaïque</a></li><li><a href="#carport">Carports solaires</a></li></ul></div>
+  <div><h4>Entreprise</h4><ul><li><a href="#expertise">Notre expertise</a></li><li><a href="#method">Notre méthode</a></li><li><a href="#secteurs">Secteurs</a></li></ul></div>
+  <div><h4>Support</h4><ul><li><a href="#contact">Contact</a></li><li><a href="#">Mentions légales</a></li><li><a href="#">Politique de confidentialité</a></li></ul></div>
+  <div class="footer-bottom"><span>&copy; 2026 eINNOVA France. Tous droits réservés.</span><span>Infrastructures énergétiques adaptées à chaque projet.</span></div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.getAttribute('id'); });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+</script>
+</body>
+</html>
